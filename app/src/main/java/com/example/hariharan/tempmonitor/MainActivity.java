@@ -2,6 +2,7 @@ package com.example.hariharan.tempmonitor;
 
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -36,13 +37,15 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    public String curTemp;
     FloatingActionButton fab;
     GraphView graph;
     View view;
     DataPoint tDataPoints[];
     DataPoint hDataPoints[];
     LineGraphSeries<DataPoint> tempSeries,humidSeries;
+    final String PARSE_APP_ID = "LsrJX7KIwS54yaVaPxQk9KgkLWmlfug0ZAdIQIN6";
+    final String PARSE_CLIENT_KEY = "xgavPnf4nCCOakOSHF6xh5OjVIkO0Bqd0On177SB";
+
 
 
     @Override
@@ -52,10 +55,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         view = findViewById(R.id.coordinator_layout);
         fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setBackgroundTintList(ColorStateList.valueOf(Color.DKGRAY));
         fab.setOnClickListener(this);
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "LsrJX7KIwS54yaVaPxQk9KgkLWmlfug0ZAdIQIN6", "xgavPnf4nCCOakOSHF6xh5OjVIkO0Bqd0On177SB");
+        initParse();
+        initGraphView();
 
+
+    }
+    protected void initParse()
+    {
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(this,PARSE_APP_ID, PARSE_CLIENT_KEY);
+    }
+    protected void initGraphView()
+    {
         graph = (GraphView) findViewById(R.id.graph);
         graph.getLegendRenderer().setVisible(true);
         graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
@@ -85,11 +98,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -103,10 +111,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             query.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> list, ParseException e) {
                     if (e == null) {
-                        Log.d("score", "Retrieved " + list.size() + " scores");
+                        Log.d("Parse", "Retrieved " + list.size() + " Objects");
                         setDataToGraph(list);
                     } else {
-                        Log.d("score", "Error: " + e.getMessage());
+                        Log.d("Parse", "Error: " + e.getMessage());
                     }
                 }
             });
