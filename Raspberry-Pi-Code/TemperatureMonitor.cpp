@@ -8,8 +8,8 @@
 int data[5] = { 0, 0, 0, 0, 0 };
 int readingOK=0;
 long int DELAY = 10000;//In Microseconds
-char PARSE_APP_ID = "LsrJX7KIwS54yaVaPxQk9KgkLWmlfug0ZAdIQIN6";
-char PARSE_CLIENT_KEY = "xgavPnf4nCCOakOSHF6xh5OjVIkO0Bqd0On177SB";
+const char PARSE_APP_ID[] = "LsrJX7KIwS54yaVaPxQk9KgkLWmlfug0ZAdIQIN6";
+const char PARSE_CLIENT_KEY[] = "xgavPnf4nCCOakOSHF6xh5OjVIkO0Bqd0On177SB";
 
  
 void readData()
