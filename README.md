@@ -27,6 +27,6 @@ sudo ./tm
 Find the latest APK in ``` app/``` .
 
 ## More about this
- *See it in action at [Youtube](https://www.youtube.com/watch?v=OZIK6oQfNuM)
- *Read my [blog](http://wp.me/p4xsYq-65)
+ * See it in action at [Youtube](https://www.youtube.com/watch?v=OZIK6oQfNuM)
+ * Read my [blog](http://wp.me/p4xsYq-65)
 
